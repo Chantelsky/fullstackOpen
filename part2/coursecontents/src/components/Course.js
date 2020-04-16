@@ -19,10 +19,6 @@ const Total = ({ total }) => (
   </p>
 );
 
-// const Course = ({ course }) => {
-//   const reducer = (init, curr) => init + curr; // sums all values of an array
-//   const sum = course.parts.map((part) => part.exercises).reduce(reducer);
-
 const Course = ({ course }) => {
   const sum = course.parts
     .map((part) => part.exercises)

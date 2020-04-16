@@ -1,16 +1,12 @@
-// import React from 'react'
+import React from 'react';
 
-// const AddName = () => {
-//     const handleNameChange = (event) => {
-//         console.log(event.target.value);
-//         setNewName(event.target.value);
-//       };
+const AddName = ({ name, handleNameChange }) => {
+  return (
+    <form>
+      <h3>Add a new</h3>
+      name: <input value={name} onChange={handleNameChange} />
+    </form>
+  );
+};
 
-//     return (
-//         <div>
-
-//         </div>
-//     )
-// }
-
-// export default AddName
+export default AddName;

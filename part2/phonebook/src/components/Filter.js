@@ -1,25 +1,11 @@
-// import React, { useState } from 'react';
+import React from 'react';
 
-// const Filter = ({ persons }) => {
-//   //showing filtered names
-//   const [showAll, setShowAll] = useState(true);
+const Filter = () => {
+  return (
+    <>
+      <h2>Filter shown with</h2>
+    </>
+  );
+};
 
-//   // const personsToShow = showAll
-//   //   ? persons
-//   //   : persons.filter((person) => person.important === true);
-
-//   return (
-//     <div>
-//       <p>
-//         Filter: <input id='name' onChange={setShowAll} />
-//       </p>
-//       <ul>
-//         {personsToShow.map((person) => (
-//           <person key={person.id} person={person} />
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default Filter;
+export default Filter;
