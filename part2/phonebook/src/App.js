@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Filter from './components/Filter';
 import AddName from './components/AddName';
 import AddNumber from './components/AddNumber';
 import Results from './components/Results';
 import Persons from './components/Persons';
+import axios from 'axios';
 
 const App = () => {
   //adding a user / checking if a user is existing
@@ -12,8 +13,16 @@ const App = () => {
   const [phoneNum, setPhoneNum] = useState('');
   // controlling the form input element.
   const [newName, setNewName] = useState('');
-
   const [filter, setFilter] = useState('');
+
+  //fetching the data from the server using axios library
+  useEffect(() => {
+    console.log('yo');
+    axios.get('http://localhost:3001/persons').then((response) => {
+      console.log('promise fulfilled');
+      setPersons(response.data);
+    });
+  }, []);
 
   const handleNameChange = (event) => {
     console.log(event.target.value);
