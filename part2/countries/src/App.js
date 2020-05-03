@@ -1,47 +1,46 @@
-import React, { useState } from 'react';
-import './App.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
+import Filter from "./components/Filter";
+import Results from "./components/Results";
 
-function App() {
-  const [name, setName] = useState('');
+const App = () => {
   const [countries, setCountries] = useState([]);
+  const [countrySearch, setCountrySearch] = useState("");
+  const [showMessage, setShowMessage] = useState(true);
 
-  const handleNameChange = (e) => {
-    console.log(e.target.value);
-    setName(e.target.value);
+  useEffect(() => {
+    axios.get("https://restcountries.eu/rest/v2/all").then((response) => {
+      setCountries(response.data);
+    });
+  }, []);
 
-    fetchCountries();
+  const countriesToShow = showMessage
+    ? 0
+    : countries.filter((country) => {
+        return country.name.toLowerCase().includes(countrySearch.toLowerCase());
+      });
+
+  const handleCountrySearch = (e) => {
+    setCountrySearch(e.target.value);
+    setShowMessage(false);
   };
 
-  const fetchCountries = async () => {
-    try {
-      const countries = await axios.get(
-        `https://restcountries.eu/rest/v2/name/${name}?fields=name;flag`
-      );
-      console.log(countries);
-
-      setCountries(countries.data);
-    } catch (err) {
-      console.log(err);
-    }
+  const handleButtonClick = (e) => {
+    setCountrySearch(e.target.parentElement.firstChild.data);
   };
 
   return (
     <div>
-      <div>
-        Find Countries:{' '}
-        <input id='name' value={name} onChange={handleNameChange} />
-      </div>
-      <div>
-        Countries:
-        <ul>
-          {countries.map((country) => {
-            return <li key={country.alpha2Code}>{country.name}</li>;
-          })}
-        </ul>
-      </div>
+      <h2>Countries</h2>
+      <Filter filterHandler={handleCountrySearch} />
+      <h2>Results</h2>
+      <Results
+        countriesList={countriesToShow}
+        handleButtonClick={handleButtonClick}
+      />
     </div>
   );
-}
+};
 
 export default App;
